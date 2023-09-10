@@ -44,8 +44,10 @@ text = npPage.text
 for ul in root.find_all('ul', recursive=False):
     for li in ul.find_all('li', recursive=False):
         link = li.find('a')
+        if not link:
+            continue
         classlist = link.get('class')
-        if link and classlist and 'mw-redirect' in classlist:
+        if classlist and 'mw-redirect' in classlist:
             title = re.sub(r'^//zh.wikipedia.org/wiki/(.+)$', r'\1', link.get('href'))
             title = urllib.parse.unquote_plus(title)
             print(title)
